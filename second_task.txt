@@ -1,0 +1,90 @@
+Subtask 1:
+ubuntu@testsc:~$ pidof main
+1588
+
+Environment variables: 
+SHELL=/bin/bash
+PWD=/home/ubuntu
+LOGNAME=ubuntu
+XDG_SESSION_TYPE=tty
+HOME=/home/ubuntu
+LANG=C.UTF-8
+LS_COLORS=rs=0:di=01;……..
+SSH_CONNECTION=192.168.64.1 49565 192.168.64.10 22
+LESSCLOSE=/usr/bin/lesspipe %s %s
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+LESSOPEN=| /usr/bin/lesspipe %s
+USER=ubuntu
+SHLVL=1
+XDG_SESSION_ID=3
+XDG_RUNTIME_DIR=/run/user/1000
+SSH_CLIENT=192.168.64.1 49565 22
+XDG_DATA_DIRS=/usr/local/share:/usr/share:/var/lib/snapd/desktop
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+SSH_TTY=/dev/pts/0_=./main
+
+Limits:Limit                     Soft Limit           Hard Limit           Units     
+Max cpu time              unlimited            unlimited            seconds   
+Max file size             unlimited            unlimited            bytes     
+Max data size             unlimited            unlimited            bytes     
+Max stack size            8388608              unlimited            bytes     
+Max core file size        0                    unlimited            bytes     
+Max resident set          unlimited            unlimited            bytes     
+Max processes             3677                 3677                 processes 
+Max open files            1024                 1048576              files     
+Max locked memory         125259776            125259776            bytes     
+Max address space         unlimited            unlimited            bytes     
+Max file locks            unlimited            unlimited            locks     
+Max pending signals       3677                 3677                 signals   
+Max msgqueue size         819200               819200               bytes     
+Max nice priority         0                    0                    
+Max realtime priority     0                    0                    
+Max realtime timeout      unlimited            unlimited            us        
+
+Status:
+1588 (main) S 1006 1588 1006 34816 1588 4194304 149 0 0 0 3 4 0 0 20 0 1 0 
+129052 6508544 864 18446744073709551615 106454591737856 106454591740333 140736366909648 
+0 0 0 0 0 0 1 0 0 17 0 0 0 0 0 0 106454591749408 106454591750168 106454969712640 140736366913133
+140736366913140 140736366913140 140736366915569 0
+
+PID (1588)
+Process name (main)
+Process state (S = sleeping)
+Parent PID (1006)
+Memory and CPU statistics
+
+
+Command line:
+total 0
+lrwx------ 1 ubuntu ubuntu 64 Mar  5 15:01 0 -> /dev/pts/0
+lrwx------ 1 ubuntu ubuntu 64 Mar  5 15:01 1 -> /dev/pts/0
+lrwx------ 1 ubuntu ubuntu 64 Mar  5 15:01 2 -> /dev/pts/0
+l-wx------ 1 ubuntu ubuntu 64 Mar  5 15:01 3 -> /home/ubuntu/test.txt
+
+4 open file descriptors:
+0: Standard input (stdin) → pointing to /dev/pts/0 (terminal)
+1: Standard output (stdout) → pointing to /dev/pts/0 (terminal)
+2: Standard error (stderr) → pointing to /dev/pts/0 (terminal)
+3: Test.txt file
+
+
+Subtask 2:
+After using  ls -l /proc/1751/fd I had a big list of the descriptors, where I could see standard file descriptors (0, 1, and 2) for stdin, stdout, and stderr
+And a large number of file descriptors pointing to created text files
+My process has opened ~1000 files (thats under the limit)
+
+Subtask 3:
+Final results:
+Successfully opened 64498 files.
+Total runtime: 91 seconds
+Starting batch 65 (files 64000 to 64999)
+  Opened 64001 files so far
+  Opened 64101 files so far
+  Opened 64201 files so far
+  Opened 64301 files so far
+  Opened 64401 files so far
+Failed to open test_files/file_064498.txt
+I have observed that the system became slower and lags everytime.
+
